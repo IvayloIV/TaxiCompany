@@ -1,0 +1,154 @@
+﻿<UserControl x:Class="TaxiCompany.Views.CarFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TaxiCompany.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="500"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Такси"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="White"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"/>
+
+        <TextBlock Text="Такси:"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   VerticalAlignment="Top"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   FontSize="14"
+                   Margin="5,0,5,0"/>
+        <TextBlock Text="Регистрационен номер:"
+                   Grid.Row="2"
+                   Grid.Column="0"
+                   VerticalAlignment="Top"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   FontSize="14"
+                   Margin="5,0,5,0"/>
+        <TextBlock Text="Марка на автомобила:"
+                   Grid.Row="3"
+                   Grid.Column="0"
+                   VerticalAlignment="Top"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   FontSize="14"
+                   Margin="5,0,5,0"/>
+        <TextBlock Text="Брой места за пътници:"
+                   Grid.Row="4"
+                   Grid.Column="0"
+                   VerticalAlignment="Top"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   FontSize="14"
+                   Margin="5,0,5,0"/>
+        <TextBlock Text="Място за голям багаж:"
+                   Grid.Row="5"
+                   Grid.Column="0"
+                   VerticalAlignment="Top"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   FontSize="14"
+                   Margin="5,0,5,0"/>
+        <TextBlock Text="Технически преглед:"
+                   Grid.Row="6"
+                   Grid.Column="0"
+                   VerticalAlignment="Top"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   FontSize="14"
+                   Margin="5,0,5,0"/>
+        <ComboBox SelectedValue="{Binding SelectedCarValue}"
+                Margin="5,0,5,20"
+                Grid.Row="1"
+                Grid.Column="1"
+                ItemsSource="{Binding CarValues}"/>
+        <StackPanel Orientation = "Vertical" Grid.Row="2" Grid.Column="1">
+            <TextBox Name ="txtRegistrationPlate"
+                 Margin="5,0,5,0"
+                 Text="{Binding Path=Car.RegistrationPlate, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Path=CarValidation.RegistrationPlateError}"
+                   Foreground="Red"
+                   FontStyle="Italic"
+                   FontSize="11"
+                   Margin="5,0,5,4"/>
+        </StackPanel>
+        <StackPanel Orientation = "Vertical" Grid.Row="3" Grid.Column="1">
+            <TextBox Name ="txtBrand"
+                 Margin="5,0,5,0"
+                 Text="{Binding Path=Car.Brand, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Path=CarValidation.BrandError}"
+                   Foreground="Red"
+                   FontStyle="Italic"
+                   FontSize="11"
+                   Margin="5,0,5,4"/>
+        </StackPanel>
+        <StackPanel Orientation = "Vertical" Grid.Row="4" Grid.Column="1">
+            <TextBox Name ="txtPassengerSeats"
+                 Margin="5,0,5,0"
+                 Text="{Binding Path=Car.PassengerSeats, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Path=CarValidation.PassengerSeatsError}"
+                   Foreground="Red"
+                   FontStyle="Italic"
+                   FontSize="11"
+                   Margin="5,0,5,4"/>
+        </StackPanel>
+        <StackPanel Orientation = "Vertical" Grid.Row="5" Grid.Column="1">
+            <CheckBox Name="txtBigBootSpace"
+                      Margin="5,4,5,12"
+                      IsChecked="{Binding Path=Car.BigBootSpace, Mode=TwoWay}"/>
+        </StackPanel>
+        <StackPanel Orientation = "Vertical" Grid.Row="6" Grid.Column="1">
+            <CheckBox Name="txtTechnicalReview"
+                      Margin="5,4,5,12"
+                      IsChecked="{Binding Path=Car.TechnicalReview, Mode=TwoWay}"/>
+        </StackPanel>
+        <StackPanel Orientation = "Vertical" Grid.Row="7" Grid.Column="1">
+            <Button Name="btnCreate"
+                Content="{Binding LabelText}"
+                Height="30"
+                Width="160"
+                Margin="8"
+                HorizontalAlignment="Left"
+                Command="{Binding Path=CreateCommand}"/>
+            <TextBlock Text="{Binding Path=SuccessMessage}"
+                   Foreground="Green"
+                   FontWeight="Bold"
+                   FontStyle="Italic"
+                   FontSize="11"
+                   Margin="8 0"/>
+        </StackPanel>
+        <Button Name="btnBack"
+                Grid.Row="0"
+                Grid.Column="0"
+                Content="Назад"
+                Height="30"
+                Width="55"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Margin="10"
+                Command="{Binding Path=NavigationBackCommand}"/>
+    </Grid>
+</UserControl>
