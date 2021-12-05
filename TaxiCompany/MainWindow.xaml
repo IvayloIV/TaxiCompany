@@ -9,12 +9,12 @@
         Icon="./Images/AppIcon.ico"
         xmlns:views="clr-namespace:TaxiCompany.Views"
         xmlns:viewmodels="clr-namespace:TaxiCompany.ViewModels"
-        Height="550"
-        Width="840">
+        Height="650"
+        Width="960">
     <Window.Background>
         <ImageBrush ImageSource="/Images/BackgroundImg.jpg" Stretch="Fill"></ImageBrush>
     </Window.Background>
-    <ContentControl Content="{Binding CurrentViewModel}">
+    <ContentControl Content="{Binding CurrentViewModel}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
         <ContentControl.Resources>
             <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                 <views:HomeView/>
@@ -28,15 +28,15 @@
             <DataTemplate DataType="{x:Type viewmodels:DriverFormViewModel}">
                 <views:DriverFormView/>
             </DataTemplate>
-            <!-- <DataTemplate DataType="{x:Type viewmodels:ReportHomeViewModel}">
+            <DataTemplate DataType="{x:Type viewmodels:ReportHomeViewModel}">
                 <views:ReportHomeView/>
-            </DataTemplate> -->
-            <!-- <DataTemplate DataType="{x:Type viewmodels:DeliveryReportViewModel}">
-                <views:DeliveryReportView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:StockReportViewModel}">
-                <views:StockReportView/> 
-            </DataTemplate> -->
+            <DataTemplate DataType="{x:Type viewmodels:OrderByDateReportViewModel}">
+                <views:OrderByDateReportView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:DriverOrderReportViewModel}">
+                <views:DriverOrderReportView/>
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>

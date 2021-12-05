@@ -42,5 +42,11 @@ namespace TaxiCompany.Dao
         {
             return goodsContext.Cars.ToList();
         }
+
+        public bool IsRegistrationPlateExist(string registrationPlate)
+        {
+            return goodsContext.Cars
+                .Any(c => c.RegistrationPlate.Equals(registrationPlate));
+        }
     }
 }

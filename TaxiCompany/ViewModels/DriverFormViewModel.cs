@@ -276,8 +276,8 @@ namespace TaxiCompany.ViewModels
 
             if (selectedOrderValue != null && !selectedOrderValue.Equals(ADD_NEW_ORDER))
             {
-                string carRegistrationPlate = selectedOrderValue.Split('-')[3].Trim();
-                Order = orderDao.FindByDriverIdAndCarRegistrationPlate(Driver.Id, carRegistrationPlate);
+                long orderId = long.Parse(selectedOrderValue.Split('-')[0].Trim());
+                Order = (Order) orderDao.FindById(orderId).Clone();
                 LabelTextOrder = Enum.GetName(typeof(OperationType), OperationType.Редактиране);
                 CarVisible = "Hidden";
             }
@@ -292,7 +292,7 @@ namespace TaxiCompany.ViewModels
 
         private void CreateDriver()
         {
-            if (!DriverValidation.ValidateDriver(Driver))
+            if (!DriverValidation.ValidateDriver(Driver, driverDao))
             {
                 if (!selectedDriverValue.Equals(ADD_NEW_DRIVER))
                 {
@@ -320,6 +320,7 @@ namespace TaxiCompany.ViewModels
                 if (!selectedOrderValue.Equals(ADD_NEW_ORDER))
                 {
                     orderDao.Update(Order);
+                    UpdateOrderValues($"{order.Id} - {order.Address} - {order.Distance} км. - {order.Car.RegistrationPlate}");
                     SuccessMessageOrder = "Успешно редактирахте поръчката!";
                 }
                 else

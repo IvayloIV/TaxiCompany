@@ -1,4 +1,5 @@
 ﻿using System;
+using TaxiCompany.Dao;
 
 namespace TaxiCompany.Models
 {
@@ -26,15 +27,18 @@ namespace TaxiCompany.Models
             set { passengerSeatsError = value; OnPropertyChanged(nameof(PassengerSeatsError)); }
         }
 
-        public bool ValidateCar(Car car)
+        public bool ValidateCar(Car car, CarDao carDao)
         {
             bool hasErrors = false;
-
-            //TODO: check if registration plate exist in db
 
             if (car.RegistrationPlate == null || car.RegistrationPlate.Length <= 3)
             {
                 RegistrationPlateError = "Регистрационният номер трябва да бъде повече от 3 символа.";
+                hasErrors = true;
+            }
+            else if (carDao.IsRegistrationPlateExist(car.RegistrationPlate))
+            {
+                RegistrationPlateError = "Регистрационният номер вече съществува.";
                 hasErrors = true;
             }
             else

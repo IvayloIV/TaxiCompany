@@ -109,7 +109,7 @@ namespace TaxiCompany.ViewModels
 
         private void Create()
         {
-            if (!CarValidation.ValidateCar(Car))
+            if (!CarValidation.ValidateCar(Car, carDao))
             {
                 if (!selectedCarValue.Equals(ADD_NEW_CAR))
                 {

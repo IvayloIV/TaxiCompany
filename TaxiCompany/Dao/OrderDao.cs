@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TaxiCompany.Models.Dto;
 
 namespace TaxiCompany.Dao
 {
@@ -22,12 +23,19 @@ namespace TaxiCompany.Dao
 
         public void Update(Order order)
         {
-            Order currentOrder = FindByDriverIdAndCarId(order.DriverId, order.CarId);
+            Order currentOrder = FindById(order.Id);
             currentOrder.Address = order.Address;
             currentOrder.OrderDate = order.OrderDate;
             currentOrder.Distance = order.Distance;
             currentOrder.Fee = order.Fee;
             goodsContext.SaveChanges();
+        }
+
+        public Order FindById(long orderId)
+        {
+            return goodsContext.Orders
+                .Where(o => o.Id.Equals(orderId))
+                .FirstOrDefault();
         }
 
         public Order FindByDriverIdAndCarId(string driverId, long carId)
@@ -56,6 +64,32 @@ namespace TaxiCompany.Dao
         public List<Order> GetAll()
         {
             return goodsContext.Orders.ToList();
+        }
+
+        public List<OrderByDateDto> OrdersByDateAndRegistrationPlate(DateTime orderDate, string registrationPlate)
+        {
+            IQueryable<Order> query = goodsContext.Orders
+                .Include("Car")
+                .Where(d => d.OrderDate.CompareTo(orderDate) <= 0);
+
+            if (registrationPlate != null && registrationPlate.Length > 0)
+            {
+                query = query.Where(o => o.Car.RegistrationPlate.Equals(registrationPlate));
+            }
+
+            return query.OrderByDescending(o => o.OrderDate)
+                .ToList()
+                .Select(o =>
+                {
+                    OrderByDateDto obdd = new OrderByDateDto();
+                    obdd.Id = o.Id;
+                    obdd.OrderDate = o.OrderDate;
+                    obdd.Distance = o.Distance;
+                    obdd.RegistrationPlate = o.Car.RegistrationPlate;
+                    obdd.Brand = o.Car.Brand;
+                    return obdd;
+                })
+                .ToList();
         }
     }
 }

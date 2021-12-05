@@ -11,14 +11,14 @@ namespace TaxiCompany.ViewModels
 {
     public class ReportHomeViewModel : BaseViewModel
     {
-        public ICommand NavigationDeliveriesCommand { get; }
-        public ICommand NavigationStocksCommand { get; }
+        public ICommand NavigationOrderByDateCommand { get; }
+        public ICommand NavigationDriverOrdersCommand { get; }
         public ICommand NavigationBackCommand { get; }
 
         public ReportHomeViewModel(NavigationStore navigationStore)
         {
-            //NavigationDeliveriesCommand = new NavigateCommand<DeliveryReportViewModel>(navigationStore, (n) => new DeliveryReportViewModel(n));
-            //NavigationStocksCommand = new NavigateCommand<StockReportViewModel>(navigationStore, (n) => new StockReportViewModel(n));
+            NavigationOrderByDateCommand = new NavigateCommand<OrderByDateReportViewModel>(navigationStore, (n) => new OrderByDateReportViewModel(n));
+            NavigationDriverOrdersCommand = new NavigateCommand<DriverOrderReportViewModel>(navigationStore, (n) => new DriverOrderReportViewModel(n));
             NavigationBackCommand = new NavigateCommand<HomeViewModel>(navigationStore, (n) => new HomeViewModel(n));
         }
     }

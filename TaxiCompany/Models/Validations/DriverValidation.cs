@@ -1,4 +1,5 @@
 ﻿using System;
+using TaxiCompany.Dao;
 
 namespace TaxiCompany.Models
 {
@@ -40,14 +41,18 @@ namespace TaxiCompany.Models
             set { nationalityError = value; OnPropertyChanged(nameof(NationalityError)); }
         }
 
-        public bool ValidateDriver(Driver driver)
+        public bool ValidateDriver(Driver driver, DriverDao driverDao)
         {
             bool hasErrors = false;
 
-            //TODO: check if Id exists in db
             if (driver.Id == null || driver.Id.Length != 10)
             {
                 IdError = "Задължително дължината на ЕГН трябва да бъде 10 символа.";
+                hasErrors = true;
+            }
+            else if (driverDao.IsDriverIdExist(driver.Id))
+            {
+                IdError = "Вече съществува шофьор с това ЕГН.";
                 hasErrors = true;
             }
             else
