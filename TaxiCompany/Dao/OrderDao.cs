@@ -91,5 +91,31 @@ namespace TaxiCompany.Dao
                 })
                 .ToList();
         }
+
+        public List<OrderByAddressDto> OrdersByAddress(string address)
+        {
+            IQueryable<Order> query = goodsContext.Orders
+                .Include("Car")
+                .Include("Driver");
+
+            if (address != null && address.Length > 0)
+            {
+                query = query.Where(o => o.Address.Contains(address));
+            }
+
+            return query.OrderByDescending(o => o.OrderDate)
+                .ToList()
+                .Select(o =>
+                {
+                    OrderByAddressDto oad = new OrderByAddressDto();
+                    oad.Address = o.Address;
+                    oad.OrderDate = o.OrderDate;
+                    oad.Distance = o.Distance;
+                    oad.DriverName = o.Driver.Name;
+                    oad.CarBrand = o.Car.Brand;
+                    return oad;
+                })
+                .ToList();
+        }
     }
 }

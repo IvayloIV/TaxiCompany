@@ -18,7 +18,7 @@
 
         <Button Name="btnOrderByDate"
                 Content="Справка за поръчки по регистрационен номер"
-                VerticalAlignment="Bottom"
+                VerticalAlignment="Center"
                 Width="300"
                 Height="50"
                 Grid.Row="0"
@@ -32,12 +32,36 @@
                 Grid.Row="1"
                 Command="{Binding Path=NavigationDriverOrdersCommand}"/>
 
+        <Button Name="btnOrdersByAddress"
+                Content="Справка за поръчките по зададен адрес"
+                VerticalAlignment="Center"
+                Width="300"
+                Height="50"
+                Grid.Row="2"
+                Command="{Binding Path=NavigationOrderByAddressCommand}"/>
+
+        <Button Name="btnCarOrders"
+                Content="Справка за такситата и техните поръчки"
+                VerticalAlignment="Center"
+                Width="300"
+                Height="50"
+                Grid.Row="3"
+                Command="{Binding Path=NavigationCarOrdersCommand}"/>
+
+        <Button Name="btnCarsByReview"
+                Content="Справка за такситата без технически преглед"
+                VerticalAlignment="Center"
+                Width="300"
+                Height="50"
+                Grid.Row="4"
+                Command="{Binding Path=NavigationCarsByReviewCommand}"/>
+
         <Button Name="btnBack"
                 Content="Назад"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center"
                 Width="150"
                 Height="50"
-                Grid.Row="6"
+                Grid.Row="5"
                 Command="{Binding Path=NavigationBackCommand}"/>
     </Grid>
 </UserControl>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaxiCompany.Models.Dto;
 
 namespace TaxiCompany.Dao
 {
@@ -47,6 +48,68 @@ namespace TaxiCompany.Dao
         {
             return goodsContext.Cars
                 .Any(c => c.RegistrationPlate.Equals(registrationPlate));
+        }
+
+        public List<string> GetCarBrands()
+        {
+            return goodsContext.Cars
+                .GroupBy(c => c.Brand)
+                .Select(c => c.Key)
+                .OrderBy(b => b)
+                .ToList();
+        }
+
+        public List<CarOrderDto> GetCarsOrders(string registrationPlate, string brand)
+        {
+            var query = goodsContext.Cars
+                .Include("Orders")
+                .GroupBy(c => new { c.Id, c.RegistrationPlate, c.Brand })
+                .Select(c =>
+                    new
+                    {
+                        id = c.Key.Id,
+                        registrationPlate = c.Key.RegistrationPlate,
+                        brand = c.Key.Brand,
+                        ordersCount = c.Sum(o => o.Orders.Count()),
+                        totalDistance = c.Sum(o => o.Orders.Count() == 0 ? 0 : o.Orders.Sum(or => or.Distance))
+                    });
+
+            if (registrationPlate != null && registrationPlate.Length > 0)
+            {
+                query = query.Where(c => c.registrationPlate.Equals(registrationPlate));
+            }
+
+            if (brand != null && brand.Length > 0)
+            {
+                query = query.Where(c => c.brand.Equals(brand));
+            }
+
+            return query
+                .OrderByDescending(c => c.ordersCount)
+                .ToList()
+                .Select(c => new CarOrderDto(c.id, c.registrationPlate, c.brand, c.ordersCount, c.totalDistance))
+                .ToList();
+        }
+
+        public List<CarByReviewDto> GetCarsByReview(bool technicalReview)
+        {
+            return goodsContext.Cars
+                .Include("Orders")
+                .GroupBy(c => new { c.Id, c.RegistrationPlate, c.Brand, c.TechnicalReview })
+                .Select(c =>
+                    new
+                    {
+                        id = c.Key.Id,
+                        registrationPlate = c.Key.RegistrationPlate,
+                        brand = c.Key.Brand,
+                        technicalReview = c.Key.TechnicalReview,
+                        totalDistance = c.Sum(o => o.Orders.Count() == 0 ? 0 : o.Orders.Sum(or => or.Distance))
+                    })
+                .Where(c => c.technicalReview == technicalReview)
+                .OrderByDescending(c => c.totalDistance)
+                .ToList()
+                .Select(c => new CarByReviewDto(c.id, c.registrationPlate, c.brand, c.technicalReview, c.totalDistance))
+                .ToList();
         }
     }
 }

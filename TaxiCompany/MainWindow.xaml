@@ -37,6 +37,15 @@
             <DataTemplate DataType="{x:Type viewmodels:DriverOrderReportViewModel}">
                 <views:DriverOrderReportView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:OrderByAddressReportViewModel}">
+                <views:OrderByAddressReportView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:CarOrderReportViewModel}">
+                <views:CarOrderReportView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:CarByReviewReportViewModel}">
+                <views:CarByReviewReportView/>
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>
