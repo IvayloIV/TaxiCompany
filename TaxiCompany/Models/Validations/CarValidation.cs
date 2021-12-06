@@ -36,7 +36,7 @@ namespace TaxiCompany.Models
                 RegistrationPlateError = "Регистрационният номер трябва да бъде повече от 3 символа.";
                 hasErrors = true;
             }
-            else if (carDao.IsRegistrationPlateExist(car.RegistrationPlate))
+            else if (carDao != null && carDao.IsRegistrationPlateExist(car.RegistrationPlate))
             {
                 RegistrationPlateError = "Регистрационният номер вече съществува.";
                 hasErrors = true;

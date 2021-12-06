@@ -50,7 +50,7 @@ namespace TaxiCompany.Models
                 IdError = "Задължително дължината на ЕГН трябва да бъде 10 символа.";
                 hasErrors = true;
             }
-            else if (driverDao.IsDriverIdExist(driver.Id))
+            else if (driverDao != null && driverDao.IsDriverIdExist(driver.Id))
             {
                 IdError = "Вече съществува шофьор с това ЕГН.";
                 hasErrors = true;

@@ -152,7 +152,7 @@
                 HorizontalAlignment="Center"
                 Command="{Binding Path=CreateDriverCommand}"/>
             <TextBlock Text="{Binding Path=SuccessMessage}"
-                   Foreground="Green"
+                   Foreground="GreenYellow"
                    FontWeight="Bold"
                    FontStyle="Italic"
                    FontSize="11"
@@ -285,7 +285,7 @@
                 HorizontalAlignment="Center"
                 Command="{Binding Path=CreateOrderCommand}"/>
             <TextBlock Text="{Binding Path=SuccessMessageOrder}"
-                   Foreground="Green"
+                   Foreground="GreenYellow"
                    FontWeight="Bold"
                    FontStyle="Italic"
                    FontSize="11"

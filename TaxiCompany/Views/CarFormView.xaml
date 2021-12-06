@@ -134,7 +134,7 @@
                 HorizontalAlignment="Left"
                 Command="{Binding Path=CreateCommand}"/>
             <TextBlock Text="{Binding Path=SuccessMessage}"
-                   Foreground="Green"
+                   Foreground="GreenYellow"
                    FontWeight="Bold"
                    FontStyle="Italic"
                    FontSize="11"

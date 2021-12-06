@@ -76,7 +76,7 @@ namespace TaxiCompany.Dao
 
             if (registrationPlate != null && registrationPlate.Length > 0)
             {
-                query = query.Where(c => c.registrationPlate.Equals(registrationPlate));
+                query = query.Where(c => c.registrationPlate.Contains(registrationPlate));
             }
 
             if (brand != null && brand.Length > 0)

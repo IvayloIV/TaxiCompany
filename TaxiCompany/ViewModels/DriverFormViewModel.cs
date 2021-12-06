@@ -292,7 +292,7 @@ namespace TaxiCompany.ViewModels
 
         private void CreateDriver()
         {
-            if (!DriverValidation.ValidateDriver(Driver, driverDao))
+            if (!DriverValidation.ValidateDriver(Driver, selectedDriverValue.Equals(ADD_NEW_DRIVER) ? driverDao : null))
             {
                 if (!selectedDriverValue.Equals(ADD_NEW_DRIVER))
                 {

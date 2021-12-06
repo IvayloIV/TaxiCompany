@@ -74,7 +74,7 @@ namespace TaxiCompany.Dao
 
             if (registrationPlate != null && registrationPlate.Length > 0)
             {
-                query = query.Where(o => o.Car.RegistrationPlate.Equals(registrationPlate));
+                query = query.Where(o => o.Car.RegistrationPlate.Contains(registrationPlate));
             }
 
             return query.OrderByDescending(o => o.OrderDate)
