@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace TaxiCompany.Models
 {
     [Table("driver")]
-    public class Driver : BaseModel
+    public class Driver : BaseModel, ICloneable
     {
         private string id;
         private string name;
@@ -62,6 +62,11 @@ namespace TaxiCompany.Models
         {
             get { return orders; }
             set { orders = value; }
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

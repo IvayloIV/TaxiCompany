@@ -21,9 +21,9 @@ namespace TaxiCompany.Dao
             goodsContext.SaveChanges();
         }
 
-        public void Update(Driver driver)
+        public void Update(string oldDriverId, Driver driver)
         {
-            Driver currentDriver = FindById(driver.Id);
+            Driver currentDriver = FindById(oldDriverId);
             currentDriver.Name = driver.Name;
             currentDriver.Address = driver.Address;
             currentDriver.DrivingLicenceValidTo = driver.DrivingLicenceValidTo;

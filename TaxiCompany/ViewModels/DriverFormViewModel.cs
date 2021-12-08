@@ -40,6 +40,7 @@ namespace TaxiCompany.ViewModels
 
         private string carVisible;
         private string orderVisible;
+        private bool isDriverIdReadOnly;
 
         public RelayCommand CreateDriverCommand { get; }
         public RelayCommand CreateOrderCommand { get; }
@@ -248,6 +249,12 @@ namespace TaxiCompany.ViewModels
             set { orderVisible = value; OnPropertyChanged(nameof(OrderVisible)); }
         }
 
+        public bool IsDriverIdReadOnly
+        {
+            get { return isDriverIdReadOnly; }
+            set { isDriverIdReadOnly = value; OnPropertyChanged(nameof(IsDriverIdReadOnly)); }
+        }
+
         private void SwapDriver(string selectedDriverValue)
         {
             SuccessMessage = string.Empty;
@@ -256,9 +263,10 @@ namespace TaxiCompany.ViewModels
             if (!selectedDriverValue.Equals(ADD_NEW_DRIVER))
             {
                 string driverId = selectedDriverValue.Split('-')[0].Trim();
-                Driver = driverDao.FindById(driverId);
+                Driver = (Driver) driverDao.FindById(driverId).Clone();
                 LabelText = Enum.GetName(typeof(OperationType), OperationType.Редактиране);
                 OrderVisible = "Visible";
+                IsDriverIdReadOnly = true;
             }
             else
             {
@@ -266,6 +274,7 @@ namespace TaxiCompany.ViewModels
                 Driver.DrivingLicenceValidTo = DateTime.Now;
                 LabelText = Enum.GetName(typeof(OperationType), OperationType.Създаване);
                 OrderVisible = "Hidden";
+                IsDriverIdReadOnly = false;
             }
         }
 
@@ -296,7 +305,8 @@ namespace TaxiCompany.ViewModels
             {
                 if (!selectedDriverValue.Equals(ADD_NEW_DRIVER))
                 {
-                    driverDao.Update(Driver);
+                    string oldDriverId = SelectedDriverValue.Split('-')[0].Trim();
+                    driverDao.Update(oldDriverId, Driver);
                     UpdateDriverValues($"{Driver.Id} - {Driver.Name}");
                     SuccessMessage = "Успешно редактирахте шофьора!";
                 }
